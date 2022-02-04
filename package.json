@@ -21,12 +21,12 @@
     "@babel/preset-env": "^7.16.11",
     "babel-plugin-add-module-exports": "^1.0.4",
     "babelify": "^10.0.0",
-    "gulp": "^4.0.2",
     "node-underscorify": "^0.0.14"
   },
   "dependencies": {
     "browserify": "^17.0.0",
     "glogg": "^1.0.2",
+    "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
     "gulp-concat": "^2.6.1",
     "gulp-eslint-new": "^1.2.0",
