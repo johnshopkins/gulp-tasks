@@ -20,7 +20,7 @@ exports.default = function (config) {
       return callback();
     }
 
-    let opts = config.opts || { formatter: 'stylish' };
+    let opts = config.lint.opts || { formatter: 'stylish' };
 
     if (config.lint.config) {
       opts.configFile = config.lint.config;
