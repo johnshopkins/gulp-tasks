@@ -42,7 +42,7 @@ exports.default = function (config) {
 
     return gulp.src(config.src)
       .pipe(gulpif(!argv.production, sourcemaps.init()))
-      .pipe(sass(opts))
+      .pipe(sass(opts).on('error', sass.logError))
       .pipe(gulpif(!argv.production, sourcemaps.write()))
       .pipe(gulpif(argv.production, cleanCSS()))
       .pipe(gulp.dest(dest));
