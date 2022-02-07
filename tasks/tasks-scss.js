@@ -5,7 +5,7 @@ const
   gulp          = require('gulp'),
   gulpif        = require('gulp-if'),
   rimraf        = require('rimraf'),
-  sass          = require('gulp-sass')(require('sass')),
+  sass          = require('gulp-dart-sass'),
   sassLint      = require('gulp-sass-lint'),
   sourcemaps    = require('gulp-sourcemaps');
 
