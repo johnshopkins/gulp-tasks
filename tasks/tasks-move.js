@@ -1,6 +1,7 @@
 const
   destination   = require('../lib/destination'),
   gulp          = require('gulp'),
+  plumber       = require('gulp-plumber'),
   rimraf        = require('rimraf')
 
 exports.default = function (config) {
@@ -16,6 +17,7 @@ exports.default = function (config) {
 
       rimraf(destination, () => {
         gulp.src(move.src)
+          .pipe(plumber())
           .pipe(gulp.dest(destination));
       });
 

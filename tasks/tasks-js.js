@@ -7,6 +7,7 @@ const
   gulp          = require('gulp'),
   gulpESLintNew = require('gulp-eslint-new'),
   gulpif        = require('gulp-if'),
+  plumber       = require('gulp-plumber'),
   rimraf        = require('rimraf'),
   sourcemaps    = require('gulp-sourcemaps'),
   through2      = require('through2'),
@@ -30,6 +31,7 @@ exports.default = function (config) {
     }
 
     return gulp.src(config.lint.src)
+      .pipe(plumber())
       .pipe(gulpESLintNew(opts))
       .pipe(gulpESLintNew.format('stylish'))
       .pipe(gulpESLintNew.failAfterError());
@@ -46,7 +48,7 @@ exports.default = function (config) {
     let transforms = config.transform || [];
 
     return gulp.src(config.src)
-
+      .pipe(plumber())
       .pipe(through2.obj(function (file, enc, callback) {
 
         let b = browserify(file.path, config.browserifyOptions || {});
@@ -117,6 +119,7 @@ exports.default = function (config) {
     for (let destinationFilename in config.concat) {
 
       gulp.src(config.concat[destinationFilename])
+        .pipe(plumber())
         .pipe(concatJS({ path: destinationFilename + '.js'}))
         .pipe(gulpif(argv.production, uglify()))
         .pipe(gulp.dest(dest));
@@ -133,6 +136,7 @@ exports.default = function (config) {
     }
 
     return gulp.src(config.minify.src)
+      .pipe(plumber())
       .pipe(gulpif(argv.production, uglify()))
       .pipe(gulp.dest(dest));
   };

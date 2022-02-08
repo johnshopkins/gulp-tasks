@@ -1,9 +1,10 @@
 const
   argv          = require('minimist')(process.argv.slice(2)),
-  cleanCSS      = require('gulp-clean-css')
+  cleanCSS      = require('gulp-clean-css'),
   destination   = require('../lib/destination'),
   gulp          = require('gulp'),
   gulpif        = require('gulp-if'),
+  plumber       = require('gulp-plumber'),
   rimraf        = require('rimraf'),
   sass          = require('gulp-dart-sass'),
   sassLint      = require('gulp-sass-lint'),
@@ -27,6 +28,7 @@ exports.default = function (config) {
     }
 
     return gulp.src(config.lint.src)
+      .pipe(plumber())
       .pipe(sassLint(opts))
       .pipe(sassLint.format())
       .pipe(sassLint.failOnError());
@@ -41,6 +43,7 @@ exports.default = function (config) {
     let opts = config.opts || {};
 
     return gulp.src(config.src)
+      .pipe(plumber())
       .pipe(gulpif(!argv.production, sourcemaps.init()))
       .pipe(sass(opts).on('error', sass.logError))
       .pipe(gulpif(!argv.production, sourcemaps.write()))

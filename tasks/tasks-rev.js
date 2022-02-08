@@ -3,6 +3,7 @@ const
   fs            = require('fs'),
   gulp          = require('gulp'),
   getLogger     = require('glogg'),
+  plumber       = require('gulp-plumber'),
   rev           = require('gulp-rev'),
   revReplace    = require('gulp-rev-replace'),
   rimraf        = require('rimraf');
@@ -41,6 +42,7 @@ exports.default = function (config) {
 
       // files are not revved; continue as planned
       return gulp.src(config.src)
+        .pipe(plumber())
         .pipe(gulp.dest(tempDir));
 
     }
@@ -60,6 +62,7 @@ exports.default = function (config) {
     logger.info('Revising filenames and creating new mapping...');
 
     return gulp.src(tempGlob)
+      .pipe(plumber())
       // rev files
       .pipe(rev())
       .pipe(gulp.dest(dest))
@@ -94,6 +97,7 @@ exports.default = function (config) {
     logger.info('Updating filenames in compiled (' + config.dist + ') files...');
 
     gulp.src(config.src, { base: "./" })
+      .pipe(plumber())
       .pipe(revReplace({
         manifest: gulp.src(manifest.manifestFileLocation),
         replaceInExtensions: ['.js', '.css']
@@ -117,6 +121,7 @@ exports.default = function (config) {
     logger.info('Updating filenames in template files...');
 
     return gulp.src(config.templates, { base: './'} )
+      .pipe(plumber())
       .pipe(revReplace({
         manifest: gulp.src(merged),
         replaceInExtensions: ['.twig', '.php', '.js']
