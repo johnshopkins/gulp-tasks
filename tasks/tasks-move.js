@@ -2,7 +2,7 @@ const
   destination   = require('../lib/destination'),
   gulp          = require('gulp'),
   plumber       = require('gulp-plumber'),
-  rimraf        = require('rimraf')
+  rimraf        = require('rimraf');
 
 exports.default = function (config) {
 

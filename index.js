@@ -1,6 +1,7 @@
 const tasks = {
   js: require('./tasks/tasks-js').default,
   move: require('./tasks/tasks-move').default,
+  phpcs: require('./tasks/tasks-phpcs').default,
   scss: require('./tasks/tasks-scss').default,
   rev: require('./tasks/tasks-rev').default
 };
