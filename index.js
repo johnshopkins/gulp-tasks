@@ -3,7 +3,8 @@ const tasks = {
   move: require('./tasks/tasks-move').default,
   phpcs: require('./tasks/tasks-phpcs').default,
   scss: require('./tasks/tasks-scss').default,
-  rev: require('./tasks/tasks-rev').default
+  rev: require('./tasks/tasks-rev').default,
+  webpack: require('./tasks/tasks-webpack').default
 };
 
 exports.Tasker = function (config) {
