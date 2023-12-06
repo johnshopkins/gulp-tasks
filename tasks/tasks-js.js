@@ -11,7 +11,8 @@ const
   rimraf        = require('rimraf'),
   sourcemaps    = require('gulp-sourcemaps'),
   through2      = require('through2'),
-  uglify        = require('gulp-uglify');
+  uglify        = require('gulp-uglify')
+  webpack       = require('webpack-stream');
 
 exports.default = function (config) {
 
@@ -39,6 +40,19 @@ exports.default = function (config) {
 
   const remove = (callback) => {
     rimraf(dest, callback);
+  };
+
+  const webpackTask = (callback) => {
+
+    if (!config.webpack) {
+      return callback();
+    }
+
+    return gulp.src(config.webpack.src)
+      .pipe(plumber())
+      .pipe(webpack(config.webpack.config || {}))
+      // .pipe(gulpif(argv.production, uglify()))
+      .pipe(gulp.dest(dest));
   };
 
   const compileJS = (config, dest) => {
@@ -142,6 +156,6 @@ exports.default = function (config) {
   };
 
   // return gulp.series(lint, compile, concat, minify);
-  return gulp.series(lint, remove, compile, concat, minify);
+  return gulp.series(lint, remove, webpackTask, compile, concat, minify);
 
 };
