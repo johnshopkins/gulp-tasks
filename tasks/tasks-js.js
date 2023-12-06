@@ -114,6 +114,10 @@ exports.default = function (config) {
    */
   const compile = (callback) => {
 
+    if (!config.compile) {
+      return callback();
+    }
+
     if (Array.isArray(config.compile)) {
       config.compile.map(config => compileJS(config, dest));
     } else {
