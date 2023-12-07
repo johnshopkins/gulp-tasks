@@ -48,10 +48,11 @@ exports.default = function (config) {
       return callback();
     }
 
+    config.webpack.config.mode = argv.production ? 'production' : 'development';
+
     return gulp.src(config.webpack.src)
       .pipe(plumber())
       .pipe(webpack(config.webpack.config || {}))
-      // .pipe(gulpif(argv.production, uglify()))
       .pipe(gulp.dest(dest));
   };
 
